@@ -61,6 +61,14 @@
 			data.pagination = pagination;
 			data.postCount = parseInt(data.postCount, 10);
 
+			for (var post in data.posts) {
+				if (data.posts.hasOwnProperty(post)) {
+					data.posts[post].timestamp = timeAgo(parseInt(data.posts[post].timestamp), 10);
+					if (data.posts[post]['floating-login:url']) {
+						delete data.posts[post];
+					}
+				}
+			}
 			
 			if (commentsCounter) {
 				commentsCounter.innerHTML = data.postCount ? (data.postCount - 1) : 0;
@@ -84,7 +92,15 @@
 
 			contentDiv = document.getElementById('nodebb-login-content');
 
-
+			setTimeout(function() {
+				var lists = nodebbDiv.getElementsByTagName("li");
+				for (var list in lists) {
+					if (lists.hasOwnProperty(list)) {
+						lists[list].className = '';
+					}
+				}
+			}, 100);
+			
 			if (savedText) {
 				contentDiv.value = savedText;
 			}
@@ -149,6 +165,10 @@
 								}
 							}
 
+							document.getElementById('nodebb-content-markdown').value = markdown;
+							document.getElementById('nodebb-content-title').value = articleData.title_plain;
+							document.getElementById('nodebb-content-cid').value = categoryID || -1;
+							document.getElementById('nodebb-content-tags').value = JSON.stringify(tags);
 						} else {
 							console.warn('Unable to access API. Please install the JSON API plugin located at: http://wordpress.org/plugins/json-api');
 						}
@@ -160,6 +180,50 @@
 		}
 	};
 
+	function reloadComments() {
+		XHR.open('GET', nodeBBURL + '/comments/get/' + articleID + '/' + pagination, true);
+		XHR.withCredentials = true;
+		XHR.send();
+	}
+
+	reloadComments();
+
+
+	function timeAgo(time){
+		var time_formats = [
+			[60, 'seconds', 1],
+			[120, '1 minute ago'],
+			[3600, 'minutes', 60],
+			[7200, '1 hour ago'],
+			[86400, 'hours', 3600],
+			[172800, 'yesterday'],
+			[604800, 'days', 86400],
+			[1209600, 'last week'],
+			[2419200, 'weeks', 604800],
+			[4838400, 'last month'],
+			[29030400, 'months', 2419200],
+			[58060800, 'last year'],
+			[2903040000, 'years', 29030400]
+		];
+
+		var seconds = (+new Date() - time) / 1000;
+
+		if (seconds < 10) {
+			return 'just now';
+		}
+		
+		var i = 0, format;
+		while (format = time_formats[i++]) {
+			if (seconds < format[0]) {
+				if (!format[2]) {
+					return format[1];
+				} else {
+					return Math.floor(seconds / format[2]) + ' ' + format[1] + ' ago';
+				}
+			}
+		}
+		return time;
+	}
 
 	var templates = {blocks: {}};
 	function parse (data, template) {

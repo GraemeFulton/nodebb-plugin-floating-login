@@ -12,7 +12,7 @@
 	stylesheet.setAttribute("href", pluginURL + '/css/comments.css');
 
 	document.getElementsByTagName("head")[0].appendChild(stylesheet);
-	document.getElementById('nodebb-comments').insertAdjacentHTML('beforebegin', '<div id="nodebb"></div>');
+	document.getElementById('nodebb-floating-login').insertAdjacentHTML('beforebegin', '<div id="nodebb"></div>');
 	nodebbDiv = document.getElementById('nodebb');
 
 	function newXHR() {
@@ -50,10 +50,10 @@
 		if (XHR.status >= 200 && XHR.status < 400) {
 			var data = JSON.parse(XHR.responseText), html;
 
-			commentsDiv = document.getElementById('nodebb-comments-list');
-			commentsCounter = document.getElementById('nodebb-comments-count');
-			commentsAuthor = document.getElementById('nodebb-comments-author');
-			commentsCategory = document.getElementById('nodebb-comments-category');
+			commentsDiv = document.getElementById('nodebb-floating-login-list');
+			commentsCounter = document.getElementById('nodebb-floating-login-count');
+			commentsAuthor = document.getElementById('nodebb-floating-login-author');
+			commentsCategory = document.getElementById('nodebb-floating-login-category');
 
 			data.relative_path = nodeBBURL;
 			data.redirect_url = articlePath;

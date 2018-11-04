@@ -1,0 +1,37 @@
+{
+  "name": "nodebb-plugin-floating-login",
+  "version": "0.5.4",
+  "description": "NodeBB Login button (Ghost / WP Commenting Engine)",
+  "main": "library.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/psychobunny/nodebb-plugin-blog-comments"
+  },
+  "keywords": [
+    "nodebb",
+    "plugin",
+    "blog",
+    "ghost",
+    "wordpress",
+    "commenting",
+    "comments"
+  ],
+  "author": {
+    "name": "psychobunny",
+    "email": "psycho.bunny@hotmail.com"
+  },
+  "license": "BSD-2-Clause",
+  "bugs": {
+    "url": "https://github.com/psychobunny/nodebb-plugin-blog-comments/issues"
+  },
+  "nbbpm": {
+    "compatibility": "^0.6.0 || ^0.7.0 || ^0.8.0 || ^0.9.0"
+  },
+  "readme": "",
+  "readmeFilename": "README.md",
+  "_id": "nodebb-plugin-floating-login@0.0.1",
+  "_from": "nodebb-plugin-floating-login@~0.0.1"
+}
